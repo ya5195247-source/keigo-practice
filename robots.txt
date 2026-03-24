@@ -1,9 +1,9 @@
-# __BASE_URL__ をデプロイ前に実際のURLに置換すること
+# https://keigo-practice.vercel.app をデプロイ前に実際のURLに置換すること
 
 User-agent: *
 Allow: /
 
-Sitemap: __BASE_URL__/sitemap.xml
+Sitemap: https://keigo-practice.vercel.app/sitemap.xml
 
 # 画像生成ツールはクロール不要
 Disallow: /icons/generate-png.html
