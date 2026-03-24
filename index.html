@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="新社会人向け敬語クイズ！尊敬語・謙譲語・丁寧語・ビジネスメールの敬語をゲーム感覚で楽しく練習しよう。">
+  <meta name="robots" content="index, follow">
+  <title>ケイゴマスター | 新社会人のための敬語練習</title>
+
+  <!--
+    デプロイ前に __BASE_URL__ を実際のURLに一括置換すること:
+    例: sed -i 's|__BASE_URL__|https://keigo-master.com|g' *.html articles/*.html
+    CI/CDパイプラインでの自動置換を推奨。ステージング環境ではrobots metaをnoindexに変更すること。
+  -->
+
+  <!-- Canonical -->
+  <link rel="canonical" href="__BASE_URL__/">
+
+  <!-- Favicon -->
+  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon.ico" sizes="48x48">
+
+  <!-- OGP -->
+  <meta property="og:title" content="ケイゴマスター | 新社会人のための敬語練習">
+  <meta property="og:description" content="尊敬語・謙譲語・丁寧語・ビジネスメールの敬語をクイズで楽しく練習！新社会人必見の無料アプリ。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="__BASE_URL__/">
+  <meta property="og:image" content="__BASE_URL__/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ケイゴマスターのロゴとクイズ画面">
+  <meta property="og:site_name" content="ケイゴマスター">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- OGP: X (Twitter) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ケイゴマスター | 新社会人のための敬語練習">
+  <meta name="twitter:description" content="敬語をクイズで楽しく練習！あなたは何問正解できる？">
+  <meta name="twitter:image" content="__BASE_URL__/ogp.png">
+  <meta name="twitter:image:alt" content="ケイゴマスターのロゴとクイズ画面">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6C63FF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1A2E" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+  <link rel="apple-touch-startup-image" href="icons/splash.png">
+
+  <!--
+    CSP方針:
+      - script-src 'self' のみ。インラインスクリプト禁止（JSON-LDは非実行なので影響なし）
+      - style-src 'self' のみ。JSからのスタイル操作はCSSOM API or クラス切替のみ
+      - img-src: data: は不要なため 'self' のみに制限
+      - frame-src: AdSense導入時に変更が必要（下記参照）
+      - 将来nonce/hashが必要になった場合はサーバーサイドで生成すること
+    AdSense導入時にCSPへ追加が必要なドメイン:
+      script-src: pagead2.googlesyndication.com adservice.google.com
+      style-src:  pagead2.googlesyndication.com
+      frame-src:  googleads.g.doubleclick.net tpc.googlesyndication.com （'none'を削除）
+      img-src:    pagead2.googlesyndication.com
+    GA4導入時にCSPへ追加が必要なドメイン:
+      script-src: www.googletagmanager.com
+      connect-src: www.google-analytics.com analytics.google.com
+    CSPもビルド時に環境変数で切り替えることを推奨。
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; frame-src 'none';">
+
+  <!-- 構造化データ (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ケイゴマスター",
+    "url": "__BASE_URL__/",
+    "description": "新社会人向けの敬語練習クイズアプリ。尊敬語・謙譲語・丁寧語・ビジネスメールの敬語を4択クイズで楽しく学べます。",
+    "applicationCategory": "EducationalApplication",
+    "image": "__BASE_URL__/ogp.png",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    },
+    "inLanguage": "ja",
+    "author": {
+      "@type": "Organization",
+      "name": "ケイゴマスター",
+      "url": "__BASE_URL__/",
+      "logo": "__BASE_URL__/icons/icon-512.svg"
+    }
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Preload: data.js（クイズデータ、最大のJSファイル） -->
+  <link rel="preload" href="data.js" as="script">
+</head>
+<body>
+  <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
+  <header class="header">
+    <h1>ケイゴマスター</h1>
+    <p>新社会人のための敬語練習クイズ</p>
+    <div class="header-controls">
+      <button class="header-toggle" id="themeToggle" aria-label="テーマ切替" aria-pressed="false">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sun">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-moon">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="header-toggle" id="soundToggle" aria-label="効果音の切替" aria-pressed="true">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-on">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sound-off">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container" id="main" tabindex="-1">
+    <!--
+      広告ユニット: ヘッダー下
+      AdSense審査通過後:
+      1. hidden属性を削除
+      2. 中身を <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXX" data-ad-slot="XXXXX" ...></ins> に差し替え
+      3. CSPのscript-src/frame-srcにAdSenseドメインを追加
+    -->
+    <aside class="ad-unit" id="ad-header" role="complementary" aria-label="広告" hidden></aside>
+
+    <!-- ローディング表示（スクリーンリーダー向けテキスト + スケルトン） -->
+    <div id="loading-region" aria-live="polite">
+      <p class="visually-hidden" id="loading-text">読み込み中です...</p>
+    </div>
+    <div class="skeleton" id="skeleton" aria-hidden="true">
+      <div class="skeleton-icon"></div>
+      <div class="skeleton-line skeleton-line-lg"></div>
+      <div class="skeleton-line skeleton-line-sm"></div>
+      <div class="skeleton-btn"></div>
+    </div>
+
+    <!-- SEO: 検索エンジン用テキスト（JSロード後にvisually-hiddenクラス付与、DOMに残す） -->
+    <div class="seo-fallback" id="seo-content">
+      <h2>敬語クイズで楽しく練習</h2>
+      <p>ケイゴマスターは、新社会人のための敬語練習クイズアプリです。尊敬語・謙譲語・丁寧語・ビジネスメールの4カテゴリ、全88問を収録。初級・中級・上級の3つの難易度で、あなたの敬語力を試せます。</p>
+    </div>
+
+    <noscript>
+      <div class="noscript-msg">
+        <h2>JavaScriptを有効にしてください</h2>
+        <p>ケイゴマスターはJavaScriptで動作するクイズアプリです。<br>ブラウザの設定でJavaScriptを有効にしてから、ページを再読み込みしてください。</p>
+        <p><a href="articles/keigo-guide.html" class="noscript-link">敬語一覧ガイドを読む（JS不要）→</a></p>
+      </div>
+    </noscript>
+  </main>
+
+  <footer class="footer">
+    <nav class="footer-links" aria-label="関連記事">
+      <a href="articles/keigo-guide.html" class="footer-link">敬語一覧ガイド</a>
+      <a href="articles/business-manner.html" class="footer-link">ビジネスマナー</a>
+      <a href="articles/job-interview.html" class="footer-link">面接の敬語</a>
+    </nav>
+    <nav class="footer-links-sub" aria-label="サイト情報">
+      <a href="about.html" class="footer-link footer-link-sub">運営者情報</a>
+      <a href="contact.html" class="footer-link footer-link-sub">お問い合わせ</a>
+      <a href="privacy.html" class="footer-link footer-link-sub">プライバシーポリシー</a>
+    </nav>
+    <p>&copy; 2026 ケイゴマスター</p>
+  </footer>
+
+  <!-- JS: deferはHTML記述順に実行される。asyncに変更すると依存関係が壊れるため禁止 -->
+  <script src="data.js" defer></script>
+  <script src="sound.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

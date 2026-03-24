@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>アイコン & OGP画像 一括生成</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+    h1 { margin-bottom: 20px; }
+    .section { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    canvas { border: 1px solid #ddd; border-radius: 8px; display: block; margin: 10px 0; }
+    button { background: #6C63FF; color: white; border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; cursor: pointer; margin: 4px; }
+    button:hover { background: #5a52e0; }
+    .btn-all { background: #4CAF50; font-size: 16px; padding: 14px 32px; }
+    .note { color: #888; font-size: 13px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>ケイゴマスター 画像アセット一括生成</h1>
+  <p>「すべて一括ダウンロード」を押すと、必要な画像がすべてダウンロードされます。</p>
+  <button class="btn-all" onclick="downloadAll()">すべて一括ダウンロード</button>
+
+  <div class="section">
+    <h2>アプリアイコン</h2>
+    <canvas id="c180" width="180" height="180"></canvas>
+    <button onclick="dl('c180','icon-180.png')">icon-180.png</button>
+    <canvas id="c192" width="192" height="192"></canvas>
+    <button onclick="dl('c192','icon-192.png')">icon-192.png</button>
+    <canvas id="c512" width="512" height="512"></canvas>
+    <button onclick="dl('c512','icon-512.png')">icon-512.png</button>
+  </div>
+
+  <div class="section">
+    <h2>OGP画像 (1200x630)</h2>
+    <canvas id="cogp" width="1200" height="630" style="max-width:100%;height:auto;"></canvas>
+    <button onclick="dl('cogp','ogp.png')">ogp.png</button>
+  </div>
+
+  <div class="section">
+    <h2>スプラッシュスクリーン (1170x2532 iPhone向け)</h2>
+    <canvas id="csplash" width="1170" height="2532" style="max-width:200px;height:auto;"></canvas>
+    <button onclick="dl('csplash','splash.png')">splash.png</button>
+  </div>
+
+  <div class="section">
+    <h2>favicon.ico 代替 (48x48 PNG)</h2>
+    <canvas id="c48" width="48" height="48"></canvas>
+    <button onclick="dl('c48','favicon.png')">favicon.png</button>
+    <p class="note">※ .ico形式が必要な場合は、このPNGをオンラインコンバーターで変換してください</p>
+  </div>
+
+<script>
+function drawIcon(id, size) {
+  const c = document.getElementById(id);
+  const ctx = c.getContext("2d");
+  const r = size * 0.2;
+  ctx.beginPath();
+  ctx.moveTo(r, 0); ctx.lineTo(size-r, 0);
+  ctx.quadraticCurveTo(size, 0, size, r);
+  ctx.lineTo(size, size-r);
+  ctx.quadraticCurveTo(size, size, size-r, size);
+  ctx.lineTo(r, size);
+  ctx.quadraticCurveTo(0, size, 0, size-r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0, 0, size, size);
+  grad.addColorStop(0, "#6C63FF");
+  grad.addColorStop(1, "#8B85FF");
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.fillStyle = "white";
+  ctx.font = `bold ${size * 0.47}px sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("敬", size/2, size/2 + size*0.03);
+}
+
+function drawOGP() {
+  const c = document.getElementById("cogp");
+  const ctx = c.getContext("2d");
+  const w = 1200, h = 630;
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, "#6C63FF");
+  grad.addColorStop(1, "#8B85FF");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Decorative circles
+  ctx.globalAlpha = 0.08;
+  ctx.fillStyle = "white";
+  ctx.beginPath(); ctx.arc(200, 500, 200, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(1000, 130, 150, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Icon
+  const iconSize = 120;
+  const iconX = w/2 - iconSize/2, iconY = 120;
+  ctx.fillStyle = "rgba(255,255,255,0.2)";
+  const ir = iconSize * 0.22;
+  ctx.beginPath();
+  ctx.moveTo(iconX+ir, iconY); ctx.lineTo(iconX+iconSize-ir, iconY);
+  ctx.quadraticCurveTo(iconX+iconSize, iconY, iconX+iconSize, iconY+ir);
+  ctx.lineTo(iconX+iconSize, iconY+iconSize-ir);
+  ctx.quadraticCurveTo(iconX+iconSize, iconY+iconSize, iconX+iconSize-ir, iconY+iconSize);
+  ctx.lineTo(iconX+ir, iconY+iconSize);
+  ctx.quadraticCurveTo(iconX, iconY+iconSize, iconX, iconY+iconSize-ir);
+  ctx.lineTo(iconX, iconY+ir);
+  ctx.quadraticCurveTo(iconX, iconY, iconX+ir, iconY);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "white";
+  ctx.font = "bold 64px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("敬", w/2, iconY + iconSize/2 + 4);
+
+  // Title
+  ctx.fillStyle = "white";
+  ctx.font = "bold 72px sans-serif";
+  ctx.fillText("ケイゴマスター", w/2, 330);
+
+  // Subtitle
+  ctx.font = "32px sans-serif";
+  ctx.globalAlpha = 0.9;
+  ctx.fillText("新社会人のための敬語練習クイズ", w/2, 400);
+  ctx.globalAlpha = 1;
+
+  // Tags
+  const tags = ["尊敬語", "謙譲語", "丁寧語", "ビジネスメール"];
+  ctx.font = "bold 24px sans-serif";
+  const tagW = 160, tagH = 44, tagGap = 20;
+  const totalW = tags.length * tagW + (tags.length-1) * tagGap;
+  let tx = (w - totalW) / 2;
+  const ty = 470;
+  tags.forEach(tag => {
+    ctx.fillStyle = "rgba(255,255,255,0.2)";
+    ctx.beginPath();
+    ctx.roundRect(tx, ty, tagW, tagH, 22);
+    ctx.fill();
+    ctx.fillStyle = "white";
+    ctx.fillText(tag, tx + tagW/2, ty + tagH/2 + 1);
+    tx += tagW + tagGap;
+  });
+
+  // Bottom text
+  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  ctx.font = "20px sans-serif";
+  ctx.fillText("全88問 ・ 3つの難易度 ・ 無料", w/2, 570);
+}
+
+function drawSplash() {
+  const c = document.getElementById("csplash");
+  const ctx = c.getContext("2d");
+  const w = 1170, h = 2532;
+
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, "#6C63FF");
+  grad.addColorStop(1, "#8B85FF");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Icon
+  const iconSize = 200, cx = w/2, cy = h/2 - 100;
+  ctx.fillStyle = "rgba(255,255,255,0.15)";
+  const ir = iconSize * 0.22;
+  const ix = cx-iconSize/2, iy = cy-iconSize/2;
+  ctx.beginPath();
+  ctx.moveTo(ix+ir, iy); ctx.lineTo(ix+iconSize-ir, iy);
+  ctx.quadraticCurveTo(ix+iconSize, iy, ix+iconSize, iy+ir);
+  ctx.lineTo(ix+iconSize, iy+iconSize-ir);
+  ctx.quadraticCurveTo(ix+iconSize, iy+iconSize, ix+iconSize-ir, iy+iconSize);
+  ctx.lineTo(ix+ir, iy+iconSize);
+  ctx.quadraticCurveTo(ix, iy+iconSize, ix, iy+iconSize-ir);
+  ctx.lineTo(ix, iy+ir);
+  ctx.quadraticCurveTo(ix, iy, ix+ir, iy);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = "white";
+  ctx.font = "bold 110px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("敬", cx, cy + 5);
+
+  ctx.font = "bold 64px sans-serif";
+  ctx.fillText("ケイゴマスター", cx, cy + 180);
+
+  ctx.globalAlpha = 0.7;
+  ctx.font = "28px sans-serif";
+  ctx.fillText("新社会人のための敬語練習クイズ", cx, cy + 250);
+  ctx.globalAlpha = 1;
+}
+
+function dl(canvasId, filename) {
+  const c = document.getElementById(canvasId);
+  const a = document.createElement("a");
+  a.download = filename;
+  a.href = c.toDataURL("image/png");
+  a.click();
+}
+
+function downloadAll() {
+  const files = [
+    ["c180", "icon-180.png"],
+    ["c192", "icon-192.png"],
+    ["c512", "icon-512.png"],
+    ["c48",  "favicon.png"],
+    ["cogp", "ogp.png"],
+    ["csplash", "splash.png"]
+  ];
+  files.forEach(([id, name], i) => {
+    setTimeout(() => dl(id, name), i * 300);
+  });
+}
+
+// Draw all on load
+drawIcon("c180", 180);
+drawIcon("c192", 192);
+drawIcon("c512", 512);
+drawIcon("c48", 48);
+drawOGP();
+drawSplash();
+</script>
+</body>
+</html>
