@@ -1,9 +1,9 @@
-# https://keigo-practice.vercel.app をデプロイ前に実際のURLに置換すること
+# https://keigo-master.jp をデプロイ前に実際のURLに置換すること
 
 User-agent: *
 Allow: /
 
-Sitemap: https://keigo-practice.vercel.app/sitemap.xml
+Sitemap: https://keigo-master.jp/sitemap.xml
 
 # 画像生成ツールはクロール不要
 Disallow: /icons/generate-png.html

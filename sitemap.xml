@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- デプロイ前に https://keigo-practice.vercel.app を実際のURLに置換すること -->
+  <!-- デプロイ前に https://keigo-master.jp を実際のURLに置換すること -->
   <url>
-    <loc>https://keigo-practice.vercel.app/</loc>
+    <loc>https://keigo-master.jp/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://keigo-practice.vercel.app/articles/keigo-guide.html</loc>
+    <loc>https://keigo-master.jp/articles/keigo-guide.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://keigo-practice.vercel.app/articles/business-manner.html</loc>
+    <loc>https://keigo-master.jp/articles/business-manner.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://keigo-practice.vercel.app/articles/job-interview.html</loc>
+    <loc>https://keigo-master.jp/articles/job-interview.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://keigo-practice.vercel.app/about.html</loc>
+    <loc>https://keigo-master.jp/about.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://keigo-practice.vercel.app/contact.html</loc>
+    <loc>https://keigo-master.jp/contact.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://keigo-practice.vercel.app/privacy.html</loc>
+    <loc>https://keigo-master.jp/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
