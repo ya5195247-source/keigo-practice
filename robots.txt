@@ -1,5 +1,3 @@
-# https://keigo-master.jp をデプロイ前に実際のURLに置換すること
-
 User-agent: *
 Allow: /
 
