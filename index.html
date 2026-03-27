@@ -8,6 +8,15 @@
   <meta name="google-site-verification" content="7sLx4Pr5-NTM_L16OBk9DIayNe4ePO-G4gcZZOqjVrc">
   <title>ケイゴマスター | 新社会人のための敬語練習</title>
 
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RPNXR6PXDT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RPNXR6PXDT');
+  </script>
+
   <!-- Canonical -->
   <link rel="canonical" href="https://keigo-master.jp/">
 
@@ -60,7 +69,7 @@
       connect-src: www.google-analytics.com analytics.google.com
     CSPもビルド時に環境変数で切り替えることを推奨。
   -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; frame-src 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self'; img-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; font-src 'self'; frame-src 'none';">
 
   <!-- 構造化データ (JSON-LD) -->
   <script type="application/ld+json">
